@@ -3,14 +3,15 @@ let Stats = require('stats.js');
 let scene = new THREE.Scene();
 let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 let renderer = new THREE.WebGLRenderer();
+let parabola = require('../lib/parabola.js');
 let dat = require('dat.gui');
 
-
+let step = 0;
+let kelven = 10000;
 let stats_fps = new Stats()
 stats_fps.showPanel( 0 );
 
 let _add = scene.add;
-let step = 0;
 scene.add = (subItem, name) =>{
   _add.call(scene, subItem);
   if(!scene.subDict) {
@@ -18,20 +19,35 @@ scene.add = (subItem, name) =>{
   } 
   name && (scene.subDict[name] = subItem);
 }
+let parabolaCompute = parabola(50, 45, 60);
 
 
 addItem(scene);
-setLight(scene);
+setLight(scene, kelven);
 adjustCamera(camera);
 setRenderer(renderer);
 animate();
 
 
-
-function setLight(scene) {
-  let spotLight = new THREE.SpotLight(0xFFFFFF);
-  spotLight.position.set(-40,60,-10);
+/**
+ * 
+ * @param {*} scene 
+ * @param {*} kelven 
+ */
+function setLight(scene, kelven) {
+  let { colorTemperature2rgb } = require('../lib/color-temperature.js');
+  let spotLightColor = colorTemperature2rgb(kelven);
+  let spotLight = new THREE.SpotLight(transRGBToHex(spotLightColor.red, spotLightColor.blue, spotLightColor.green));
+  spotLight.position.set(-40, 60, -10);
   scene.add(spotLight, 'spotLight');
+
+  function transRGBToHex(r, g, b) {
+    r = r < 10 ? '0' + r.toString(16) : r.toString(16);
+    g = g < 10 ? '0' + g.toString(16) : g.toString(16);
+    b = b < 10 ? '0' + b.toString(16) : b.toString(16);
+
+    return '0x' + r + g + b;
+  }
 }
 
 function setRenderer(renderer) {
@@ -98,13 +114,19 @@ function addItem(scene) {
 function animate() {
   stats_fps.begin();
   let sphere = scene.subDict['sphere'];
-
+  let spotLight = scene.subDict['spotLight'];
   camera.lookAt(scene.position);
 
   step += 0.04;
-
   sphere.position.x = 20 + ( 10 * (Math.cos(step)));
   sphere.position.y = 2 + ( 10 * Math.abs(Math.sin(step)));
+  // let [offsetx, offsetY] = parabolaCompute();
+  // if(offsetY > 0) {  
+  //   sphere.position.x = offsetx;
+  //   sphere.position.y = offsetY;
+  // }
+
+  // console.log(offsetx, offsetY)
 	// monitored code goes here
   stats_fps.end();
 
