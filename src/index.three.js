@@ -12,6 +12,7 @@ let stats_fps = new Stats()
 stats_fps.showPanel( 0 );
 
 let _add = scene.add;
+
 scene.add = (subItem, name) =>{
   _add.call(scene, subItem);
   if(!scene.subDict) {
@@ -19,6 +20,7 @@ scene.add = (subItem, name) =>{
   } 
   name && (scene.subDict[name] = subItem);
 }
+
 let parabolaCompute = parabola(50, 45, 60);
 
 

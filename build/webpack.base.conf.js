@@ -2,8 +2,8 @@
  const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
+
  module.exports = {
-   entry: path.join(__dirname, '../src/index.js'),
    output: {
      filename: 'bundle.[hash].js',
      path: path.join(__dirname, '../dist')
@@ -18,23 +18,28 @@
          use: ['style-loader', 'css-loader']
        },
        {
-        test: /\.less$/,
-        use: [
-          {
-            loader: 'style-loader', // creates style nodes from JS strings
-          },
-          {
-            loader: 'css-loader', // translates CSS into CommonJS
-          },
-          {
-            loader: 'less-loader', // compiles Less to CSS
-            options: {
-              strictMath: true,
-              noIeCompat: true,
-            },
-          },
-        ],
-      },
+         test: /\.(vert)$/,
+         use: [{
+           loader: 'raw-loader'
+         }]
+       },
+       {
+         test: /\.less$/,
+         use: [{
+             loader: 'style-loader', // creates style nodes from JS strings
+           },
+           {
+             loader: 'css-loader', // translates CSS into CommonJS
+           },
+           {
+             loader: 'less-loader', // compiles Less to CSS
+             options: {
+               strictMath: true,
+               noIeCompat: true,
+             },
+           },
+         ],
+       },
      ]
    },
    plugins: [
