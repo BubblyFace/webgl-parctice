@@ -8,14 +8,8 @@ export default function(id, isF) {
   dom = document.createElement('canvas');
   dom.id = id;
   dom.style = `
-    position:fixed;
-    width:100%;
-    height:100%;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    z-index:2;
+    width:400;
+    height:400;
   `
 
   document.body.appendChild(dom);
