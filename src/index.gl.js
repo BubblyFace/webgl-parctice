@@ -4,22 +4,25 @@ import cleanCanvasWithBg from '../utils/clean-canvas-with-background-color'
 import fshader from '../public/GLSL/FSHADER_SOURCE/f_index.vert';
 import vshader from '../public/GLSL/VSHADER_SOURCE/v_index.vert';
 import initShaders from '../utils/init-shaders';
-import initVertexBuffers from '../utils/init-vertexBuffers';
+import { setVertexBuffers } from '../utils/vertex-buffer-manager';
 import initVextexColor from '../utils/init-vextex-color';
+import draw from '../utils/draw'
 
 main()
 
 function main() {
   let gl = getWebGlContext(createCanvas('canvas-gl'));
-  initShaders(gl, vshader, fshader);
 
-  cleanCanvasWithBg(gl, [0.0, 0.0, 0.0, 1.0]);
-  initVertexBuffers(gl, 4, new Float32Array([
-    -0.1, 0.1,  0.1, 0.1,   0.1, -0.1, -0.1, -0.1]));
-  
-  initVextexColor(gl, [1.0, 0.0, 0.0, 1]);
-  gl.drawArrays(gl.LINE_LOOP, 0, 4);
-  gl.drawArrays(gl.TRIANGLE_FAN, 0, 4);
+  draw(gl, 'TRIANGLE_FAN', 
+    new Float32Array([-0.1, 0.1,  0.1, 0.1,   0.1, -0.1,  -0.1, -0.1]),
+    [1.0, 0.0, 0.0, 1],
+    true,
+    [0.0, 0.0, 0.0, 1.0]
+  );
+
+  draw(gl, 'LINE_LOOP', 
+    new Float32Array([-0.2, 0.2,  0.2, 0.2,   0.2, -0.2,  -0.2, -0.2]),
+    [1.0, 1.0, 1.0, 1]
+  );
 }
 
-main();

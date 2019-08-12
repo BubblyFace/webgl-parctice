@@ -15,6 +15,19 @@ export default function initVertexBuffers(gl, n, data) {
     console.log('Failed to create vertexBuffer')
     return null
   }
+
+  gl._vertexBuffer = vertexBuffer;
+
+  setVertexBuffers(gl, n, data)
+}
+
+
+export function setVertexBuffers(gl, n, data) {
+  if(gl && !gl._vertexBuffer) {
+    initVertexBuffers(gl, n, data)
+  }
+  let vertexBuffer = gl._vertexBuffer;
+
   // bind
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
   
@@ -35,5 +48,4 @@ export default function initVertexBuffers(gl, n, data) {
   gl.enableVertexAttribArray(a_Position);
 
   return;
-
 }
