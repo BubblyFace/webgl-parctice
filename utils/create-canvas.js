@@ -7,10 +7,9 @@ export default function(id, isF) {
 
   dom = document.createElement('canvas');
   dom.id = id;
-  dom.style = `
-    width:400;
-    height:400;
-  `
+  dom.style.width = '400px';
+  dom.style.height = '400px';
+
 
   document.body.appendChild(dom);
   return dom
