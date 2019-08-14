@@ -1,5 +1,3 @@
-import getWebGlContext from './get-webgL-context';
-import createCanvas from './create-canvas';
 import cleanCanvasWithBg from './clean-canvas-with-background-color'
 import fshader from '../public/GLSL/FSHADER_SOURCE/f_index.vert';
 import vshader from '../public/GLSL/VSHADER_SOURCE/v_index.vert';

@@ -7,10 +7,11 @@ export default function(id, isF) {
 
   dom = document.createElement('canvas');
   dom.id = id;
-  dom.style.width = '400px';
-  dom.style.height = '400px';
+  dom.style.width = '100vw';
+  dom.style.height = '100vh';
 
 
   document.body.appendChild(dom);
   return dom
 }
+
