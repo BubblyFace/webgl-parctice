@@ -26,3 +26,4 @@ export default function draw(gl, type, data, color,shouldReFrash, background) {
   initVextexColor(gl, color);
   gl.drawArrays(gl[type], 0, length);
 }
+

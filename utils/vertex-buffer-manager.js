@@ -22,12 +22,20 @@ export default function initVertexBuffers(gl, n, data) {
 }
 
 
-export function setVertexBuffers(gl, n, data) {
+export function setVertexBuffers(gl, n, data, matrix) {
   if(gl && !gl._vertexBuffer) {
     initVertexBuffers(gl, n, data)
   }
+  // debugger
   let vertexBuffer = gl._vertexBuffer;
 
+  matrix = matrix || new Float32Array([
+    1.0,  0.0, 0.0, 0.0,
+    0.0,  1.0, 0.0, 0.0,
+    0.0,  0.0, 1.0, 0.0,
+    0.0,  0.0, 0.0, 1.0
+  ]);
+  
   // bind
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
   
@@ -35,6 +43,10 @@ export function setVertexBuffers(gl, n, data) {
   // write
   gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
 
+  let u_formMatrix = gl.getUniformLocation(gl.program, 'u_formMatrix');
+
+  gl.uniformMatrix4fv(u_formMatrix, false, matrix);
+  
   let a_Position = gl.getAttribLocation(gl.program, 'a_Position');
   if (a_Position < 0) {
     console.log('Failed to get the storage location of a_Position');

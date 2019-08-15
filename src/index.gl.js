@@ -2,6 +2,7 @@ import getWebGlContext from '../utils/get-webgL-context';
 import createCanvas from '../utils/create-canvas';
 import resize from '../utils/resize';
 import draw from '../utils/draw';
+import Painter from '../lib/painter';
 
 main()
 
@@ -12,16 +13,17 @@ function main() {
   resize(gl);
   gl.viewport(0, 0, canvas.width, canvas.height);
 
+  let painter = new Painter(gl);
 
-  draw(gl, 'TRIANGLE_FAN', 
-    new Float32Array([-0.1, 0.1,  0.1, 0.1,   0.1, -0.1,  -0.1, -0.1]),
-    [1.0, 0.0, 0.0, 1],
-    true,
-    [0.0, 0.0, 0.0, 1.0]
-  );
-
-  draw(gl, 'LINE_LOOP', 
-    new Float32Array([-0.2, 0.2,  0.2, 0.2,   0.2, -0.2,  -0.2, -0.2]),
-    [1.0, 1.0, 1.0, 1]
-  );
+  painter.draw([[-0.1, 0.1],  [0.1, 0.1],   [0.1, -0.2],  [-0.1, -0.1]], 'LINE_LOOP');
+  // transform(-1.)
+  painter.displacement(0.1);
+  painter.transform(0.0, 2.0);
+  // let angle = 1;
+  // setInterval(() => {
+  //   painter.clean([0.0, 0.0, 0.0, 1.0]);
+  //   painter.rotate(angle);
+  //   angle += 1;
+  // }, 50)
 }
+
