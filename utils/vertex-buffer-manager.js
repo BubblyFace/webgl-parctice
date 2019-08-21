@@ -23,10 +23,14 @@ export default function initVertexBuffers(gl, n, data) {
 
 
 export function setVertexBuffers(gl, n, data, matrix) {
+  // data = new Float32Array([-0.1, 0.1, 10.0,  0.1, 0.1, 20.0,   0.1, -0.2, 30.0,  -0.1, -0.1, 40.0])
+
   if(gl && !gl._vertexBuffer) {
     initVertexBuffers(gl, n, data)
   }
-  // debugger
+
+  const FSIZE = data.BYTES_PER_ELEMENT;
+
   let vertexBuffer = gl._vertexBuffer;
 
   matrix = matrix || new Float32Array([
@@ -39,7 +43,6 @@ export function setVertexBuffers(gl, n, data, matrix) {
   // bind
   gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
   
-
   // write
   gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
 
@@ -48,16 +51,21 @@ export function setVertexBuffers(gl, n, data, matrix) {
   gl.uniformMatrix4fv(u_formMatrix, false, matrix);
   
   let a_Position = gl.getAttribLocation(gl.program, 'a_Position');
+  let a_PointSize = gl.getAttribLocation(gl.program, 'a_PointSize');
+
   if (a_Position < 0) {
     console.log('Failed to get the storage location of a_Position');
     return -1;
   }
 
   // set
-  gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 0, 0);
-
+  gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, FSIZE * 3, 0);
   // link
   gl.enableVertexAttribArray(a_Position);
+  // set size 
+  gl.vertexAttribPointer(a_PointSize, 1, gl.FLOAT, false, FSIZE * 3, FSIZE * 2);
+  // link size
+  gl.enableVertexAttribArray(a_PointSize);
 
   return;
 }
