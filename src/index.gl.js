@@ -14,7 +14,24 @@ function main() {
 
   let painter = new Painter(gl);
 
-  painter.draw([[-0.1, 0.1, 10.0],  [0.1, 0.1, 20.0],   [0.1, -0.2, 30.0],  [-0.1, -0.1, 40.0]], 'POINTS');
+  painter.draw([{
+   data: [-0.1, 0.1, 10.0],
+   color: [1.0, 0.0, 0.0]
+  },
+  {
+    data: [0.1, 0.1, 20.0],
+    color: [0.0, 0.0, 1.0]
+   },
+   {
+    data: [-0.1, -0.1, 40.0],
+    color: [1.0, 0.0, 1.0]
+   },
+   {
+    data: [0.1, -0.2, 30.0],
+    color: [1.0, 1.0, 0.0]
+   } ,
+   
+  ], 'TRIANGLE_STRIP');
   // transform(-1.)
   // painter.displacement(0.1);
   // painter.transform(0.0, 2.0);

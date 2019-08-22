@@ -52,6 +52,7 @@ export function setVertexBuffers(gl, n, data, matrix) {
   
   let a_Position = gl.getAttribLocation(gl.program, 'a_Position');
   let a_PointSize = gl.getAttribLocation(gl.program, 'a_PointSize');
+  let a_PointColor = gl.getAttribLocation(gl.program, 'a_PointColor');
 
   if (a_Position < 0) {
     console.log('Failed to get the storage location of a_Position');
@@ -59,13 +60,18 @@ export function setVertexBuffers(gl, n, data, matrix) {
   }
 
   // set
-  gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, FSIZE * 3, 0);
+  gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, FSIZE * 6, 0);
   // link
   gl.enableVertexAttribArray(a_Position);
+
   // set size 
-  gl.vertexAttribPointer(a_PointSize, 1, gl.FLOAT, false, FSIZE * 3, FSIZE * 2);
+  gl.vertexAttribPointer(a_PointSize, 1, gl.FLOAT, false, FSIZE * 6, FSIZE * 2);
   // link size
   gl.enableVertexAttribArray(a_PointSize);
+  // set color 
+  gl.vertexAttribPointer(a_PointColor, 3, gl.FLOAT, false, FSIZE * 6, FSIZE * 3);
+  // link color
+  gl.enableVertexAttribArray(a_PointColor);
 
   return;
 }
