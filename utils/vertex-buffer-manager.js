@@ -75,3 +75,25 @@ export function setVertexBuffers(gl, n, data, matrix) {
 
   return;
 }
+
+
+export function setTextureBuffers(gl, coordData, source) {
+  let vertexTexCoordBuffer = gl.createBuffer()
+  let FSIZE = coordData.BYTES_PER_ELEMENT;
+
+  let a_Position = gl.getAttribLocation(gl.program, 'a_Position');
+  let a_TextCoord = gl.getAttribLocation(gl.program, 'a_TextCoord');
+
+
+  gl.bindBuffer(gl.ARRAY_BUFFER, vertexTexCoordBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, coordData, gl.STATIC_DRAW)
+
+
+  gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, FSIZE * 4, 0);
+  gl.enableVertexAttribArray(a_Position);
+
+  gl.vertexAttribPointer(a_TextCoord, 2, gl.FLOAT, FSIZE * 4, 2);
+  gl.enableVertexAttribArray(a_TextCoord);
+
+  return
+}
