@@ -3,8 +3,8 @@ import createCanvas from '../utils/create-canvas';
 import resize from '../utils/resize';
 import Painter from '../lib/painter';
 
-import fShader from '../public/GLSL/FSHADER_SOURCE/f_texture'
-import vShader from '../public/GLSL/VSHADER_SOURCE/v_texture'
+import fShader from '../public/GLSL/FSHADER_SOURCE/f_texture.vert'
+import vShader from '../public/GLSL/VSHADER_SOURCE/v_texture.vert'
 
 
 main()
@@ -37,7 +37,7 @@ function main() {
   // ], 'TRIANGLE_STRIP');
 
   painter.addTexture(
-    '/Users/haoweisun/Desktop/work/practice/webgl-parctice/public/images/1566475180348-image.png'
+    './public/images/1566475180348-image.png',
     [ // 实际区域坐标
       -1.0, 1.0, -0.5, 0.5, 
       1.0, 1.0, 0.5, 0.5, 

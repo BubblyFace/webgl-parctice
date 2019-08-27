@@ -8,7 +8,7 @@ module.exports = merge(baseConfig, {
   devtool: 'inline-source-map',
   entry: path.join(__dirname, '../src/index.gl.js'),
   devServer: {
-    contentBase: './dist',
+    contentBase: './',
     port: 3000
   }
 });
